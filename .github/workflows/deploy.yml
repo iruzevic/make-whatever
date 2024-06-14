@@ -46,7 +46,7 @@ jobs:
         uses: infinum/eightshift-deploy-actions-public/.github/actions/setup-theme-or-plugin@main
         with:
           ROOT_PATH: $GITHUB_WORKSPACE
-          PROJECT_PATH: wp-content/themes/ericsson
+          PROJECT_PATH: wp-content/themes/makewhatever
 
       - name: Deploy to server
         uses: infinum/eightshift-deploy-actions-private/.github/actions/server-deploy@main

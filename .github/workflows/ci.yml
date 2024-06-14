@@ -21,7 +21,7 @@ jobs:
         uses: infinum/eightshift-deploy-actions-public/.github/actions/lint-assets@main
         with:
           NODE_VERSION: ${{ matrix.node }}
-          PROJECT_PATH: wp-content/themes/ericsson
+          PROJECT_PATH: wp-content/themes/makewhatever
 
   phpstan:
     name: PHP static code analysis using PHP - ${{ matrix.php }}
@@ -35,7 +35,7 @@ jobs:
         uses: infinum/eightshift-deploy-actions-public/.github/actions/lint-php-static@main
         with:
           PHP_VERSION: ${{ matrix.php }}
-          PROJECT_PATH: wp-content/themes/ericsson
+          PROJECT_PATH: wp-content/themes/makewhatever
 
   phpcs:
     name: PHP check coding standards using PHP - ${{ matrix.php }}
@@ -49,5 +49,5 @@ jobs:
         uses: infinum/eightshift-deploy-actions-public/.github/actions/lint-php@main
         with:
           PHP_VERSION: ${{ matrix.php }}
-          PROJECT_PATH: wp-content/themes/ericsson
+          PROJECT_PATH: wp-content/themes/makewhatever
 
