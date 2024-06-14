@@ -1,0 +1,63 @@
+name: Deploy to server
+
+on:
+  workflow_dispatch:
+    inputs:
+      ENVIRONMENT:
+        type: choice
+        description: "The environment to deploy to."
+        options:
+        - production
+        - staging
+        required: true
+        default: "staging"
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  deploy:
+    name: Build WordPress and deploy to server
+    runs-on: ubuntu-latest
+    environment: ${{ inputs.ENVIRONMENT }}
+    strategy:
+      fail-fast: false
+
+    steps:
+      - name: Setup WordPress
+        uses: infinum/eightshift-deploy-actions-public/.github/actions/setup-wordpress@main
+        with:
+          PHP_VERSION: '8.3'
+          ENVIRONMENT: ${{ inputs.ENVIRONMENT }}
+          SETUP_FILE: $GITHUB_WORKSPACE/setup.json
+          WORDPRESS_GH_ACTIONS: ${{ secrets.WORDPRESS_GH_ACTIONS }}
+          DB_NAME: ${{ secrets.DB_NAME }}
+          DB_USER: ${{ secrets.DB_USER }}
+          DB_PASSWORD: ${{ secrets.DB_PASSWORD }}
+          DB_HOST: ${{ secrets.DB_HOST }}
+
+      - name: Setup custom secrets as environment variables
+        shell: bash
+        run: |
+          php wp-cli.phar config set BUGSNAG_API_KEY ${{ secrets.BUGSNAG_API_KEY }}
+
+      - name: Install theme
+        uses: infinum/eightshift-deploy-actions-public/.github/actions/setup-theme-or-plugin@main
+        with:
+          ROOT_PATH: $GITHUB_WORKSPACE
+          PROJECT_PATH: wp-content/themes/ericsson
+
+      - name: Deploy to server
+        uses: infinum/eightshift-deploy-actions-private/.github/actions/server-deploy@main
+        with:
+          SERVER_SSH_KEY: ${{ secrets.SERVER_SSH_KEY }}
+          SERVER_USER: ${{ secrets.SERVER_USER }}
+          SERVER_HOST: ${{ secrets.SERVER_HOST }}
+          SERVER_ROOT: ${{ secrets.SERVER_ROOT }}
+          SERVER_PORT: ${{ secrets.SERVER_PORT }}
+
+      - name: Notify
+        uses: infinum/eightshift-deploy-actions-public/.github/actions/slack-notification@main
+        with:
+          SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK }}

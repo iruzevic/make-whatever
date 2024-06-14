@@ -1,0 +1,26 @@
+{
+	"name": "makewhatever",
+	"description": "Eightshift Boilerplate is a WordPress starter theme that helps you build better and faster using the modern development tools.",
+	"private": true,
+	"license": "MIT",
+	"scripts": {
+		"lintStyle": "stylelint **/*.scss",
+		"lintJs": "eslint src/ assets/",
+		"lint": "npm run lintJs && npm run lintStyle && composer standards:check -- --filter=gitstaged",
+		"start": "webpack --watch --mode development",
+		"build": "webpack --progress --mode production"
+	},
+	"devDependencies": {
+		"husky": "^9.0.11",
+		"webpack": "^5.91.0",
+		"webpack-cli": "^5.1.4"
+	},
+	"husky": {
+		"hooks": {
+			"pre-commit": "npm run lint"
+		}
+	},
+	"dependencies": {
+		"@eightshift/frontend-libs": "^12.0.0"
+	}
+}

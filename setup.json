@@ -1,0 +1,17 @@
+{
+	"urls": {
+		"develop": "https://make-whatever.test",
+		"production": "https://make-whatever.com"
+	},
+	"core": "6.5.3",
+	"plugins": {
+		"core": {
+			"query-monitor": "3.16.3",
+			"wp-mail-smtp": "4.0.1",
+			"wordfence": "7.11.6",
+			"redirection": "5.4.2",
+			"wordpress-seo": "22.8"
+		},
+		"infinum/eightshift-forms": "4.0.1"
+	}
+}
