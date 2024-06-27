@@ -1,86 +1,82 @@
 {
-	"$schema": "https://raw.githubusercontent.com/infinum/eightshift-frontend-libs/develop/schemas/component.json",
+	"$schema": "https://raw.githubusercontent.com/infinum/eightshift-frontend-libs-tailwind/main/schemas/component.json",
 	"componentName": "image",
 	"title": "Image",
 	"componentClass": "image",
 	"example": {
 		"attributes": {
-			"imageUrl": "https://loremflickr.com/1000/800",
-			"imageUrlDesktop": "https://loremflickr.com/800/600",
-			"imageUrlTablet": "https://loremflickr.com/600/400",
-			"imageUrlMobile": "https://loremflickr.com/300/200",
-			"imageAccept": "image/*",
-			"imageAllowedTypes": ["image"],
-			"imageAlt": "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
-			"imageFull": false,
+			"imageData": {
+				"_mobileFirst": false,
+				"_default": {
+					"id": "1",
+					"url": "https://loremflickr.com/1000/800"
+				}
+			},
 			"imageUse": true
 		}
 	},
 	"attributes": {
-		"imageUrl": {
-			"type": "string"
-		},
-		"imageUrlDesktop": {
-			"type": "string"
-		},
-		"imageUrlTablet": {
-			"type": "string"
-		},
-		"imageUrlMobile": {
-			"type": "string"
-		},
-		"imageAccept": {
-			"type": "string",
-			"default": "image/*"
-		},
-		"imageAllowedTypes": {
-			"type": "array",
-			"default": ["image"]
-		},
-		"imageAlt": {
-			"type": "string"
-		},
-		"imageFull": {
-			"type": "boolean",
-			"default": false
+		"imageData": {
+			"type": "object",
+			"default": {
+				"_mobileFirst": false,
+				"_default": {
+					"id": "",
+					"url": ""
+				}
+			}
 		},
 		"imageUse": {
 			"type": "boolean",
 			"default": true
 		},
 		"imageRoundedCorners": {
-			"type": "boolean",
-			"default": false
+			"type": "string",
+			"default": "none"
 		}
 	},
-	"responsiveAttributes": {
-		"imageUrl": {
-			"large": "imageUrl",
-			"desktop": "imageUrlDesktop",
-			"tablet": "imageUrlTablet",
-			"mobile": "imageUrlMobile"
-		}
+	"options": {
+		"imageRoundedCorners": [
+			{
+				"label": "None",
+				"value": "none"
+			},
+			{
+				"label": "Small",
+				"value": "small"
+			},
+			{
+				"label": "Medium",
+				"value": "medium"
+			},
+			{
+				"label": "Large",
+				"value": "large"
+			},
+			{
+				"label": "Full",
+				"value": "full"
+			}
+		]
 	},
-	"variables": {
-		"imageFull": {
-			"true": [
-				{
-					"variable": {
-						"image-width": "100%",
-						"image-img-width": "100%",
-						"image-img-max-width": "none"
-					}
-				}
-			]
+	"tailwind": {
+		"base": {
+			"twClasses": "object-cover"
 		},
-		"imageRoundedCorners": {
-			"true": [
-				{
-					"variable": {
-						"image-border-radius": "1rem"
-					}
+		"parts": {
+			"picture": {
+				"twClasses": "inline-block"
+			}
+		},
+		"options": {
+			"imageRoundedCorners": {
+				"twClasses": {
+					"small": "rounded",
+					"medium": "rounded-lg",
+					"large": "rounded-2xl",
+					"full": "rounded-full"
 				}
-			]
+			}
 		}
 	}
 }

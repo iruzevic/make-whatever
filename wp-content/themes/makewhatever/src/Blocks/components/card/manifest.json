@@ -1,35 +1,58 @@
 {
-	"$schema": "https://raw.githubusercontent.com/infinum/eightshift-frontend-libs/develop/schemas/component.json",
+	"$schema": "https://raw.githubusercontent.com/infinum/eightshift-frontend-libs-tailwind/main/schemas/component.json",
 	"componentName": "card",
 	"title": "Card",
 	"componentClass": "card-simple",
 	"example": {
 		"attributes": {
 			"cardIntroContent": "This is intro",
-			"cardIntroSize": "h4:bold",
-			"cardIntroColor": "light",
-			"cardAlign": "left"
+			"cardAlign": "start"
 		}
 	},
 	"attributes": {
 		"cardAlign": {
 			"type": "string",
-			"default": "left"
+			"default": "start"
 		},
+
 		"cardIntroSize": {
 			"type": "string",
-			"default": "h6:medium"
+			"default": "sm"
+		},
+		"cardButtonVariant": {
+			"type": "string",
+			"default": "secondary"
 		},
 		"cardHeadingSize": {
 			"type": "string",
-			"default": "h3:bold"
+			"default": "md"
+		},
+		"cardHeadingTag": {
+			"type": "string",
+			"default": "p"
+		},
+		"cardParagraphSize": {
+			"type": "string",
+			"default": "sm"
+		},
+		"cardButtonContent": {
+			"type": "string",
+			"default": "Read more"
+		},
+		"cardButtonColor": {
+			"type": "string",
+			"default": "gray-500"
+		},
+		"cardButtonSize": {
+			"type": "string",
+			"default": "sm"
 		}
 	},
 	"options": {
 		"cardAlign": [
 			{
-				"label": "Left",
-				"value": "left",
+				"label": "Start",
+				"value": "start",
 				"icon": "textAlignLeft"
 			},
 			{
@@ -38,45 +61,51 @@
 				"icon": "textAlignCenter"
 			},
 			{
-				"label": "Right",
-				"value": "right",
+				"label": "End",
+				"value": "end",
 				"icon": "textAlignRight"
 			}
 		]
 	},
 	"components": {
 		"image": "image",
-		"intro": "heading",
+		"intro": "paragraph",
 		"heading": "heading",
 		"paragraph": "paragraph",
 		"button": "button"
 	},
-	"variables": {
-		"cardAlign": {
-			"left": [
-				{
-					"variable": {
-						"block-card-text-align": "left",
-						"block-card-content-align": "flex-start"
-					}
+	"tailwind": {
+		"base": {
+			"twClasses": "w-full mobile:max-w-80 rounded-2xl border bg-white shadow-md overflow-hidden"
+		},
+		"parts": {
+			"image": {
+				"twClasses": "w-full aspect-3/2"
+			},
+			"imagePicture": {
+				"twClasses": "w-full !block border-b border-b-gray-200 bg-gray-100"
+			},
+			"content-container": {
+				"twClasses": "p-4"
+			},
+			"intro": {
+				"twClasses": "text-gray-400 italic"
+			},
+			"text": {
+				"twClasses": "mt-2 text-gray-600"
+			},
+			"button": {
+				"twClasses": "mt-3"
+			}
+		},
+		"options": {
+			"cardAlign": {
+				"twClasses": {
+					"start": "text-start",
+					"center": "text-center",
+					"end": "text-end"
 				}
-			],
-			"center": [
-				{
-					"variable": {
-						"block-card-text-align": "center",
-						"block-card-content-align": "center"
-					}
-				}
-			],
-			"right": [
-				{
-					"variable": {
-						"block-card-text-align": "right",
-						"block-card-content-align": "flex-end"
-					}
-				}
-			]
+			}
 		}
 	}
 }

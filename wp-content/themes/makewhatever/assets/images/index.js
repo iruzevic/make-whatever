@@ -1,7 +1,5 @@
 /**
- * This is the main entry point for project images.
+ * Main entry point for project images.
  *
- * Usage: `WordPress admin screen`, `WordPress frontend screen`, `WordPress admin editor`.
+ * Used in the WordPress admin, Block editor, and frontend.
  */
-
-import './logo.svg';

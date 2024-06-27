@@ -1,31 +1,39 @@
 import React from 'react';
 import { __ } from '@wordpress/i18n';
-import { PanelBody } from '@wordpress/components';
-import { checkAttr, getAttrKey, getOption, props, OptionSelector } from '@eightshift/frontend-libs/scripts';
-import { HeadingOptions as HeadingOptionsComponent } from '../../../components/heading/components/heading-options';
+import { checkAttr, getAttrKey, getOption, props } from '@eightshift/frontend-libs-tailwind/scripts';
+import { HeadingOptions as OptionsComponent } from '../../../components/heading/components/heading-options';
+import { ColorPicker, OptionSelect } from '@eightshift/ui-components';
+import { getColorOption } from '../../../assets/scripts/shared';
 import manifest from '../manifest.json';
 
 export const HeadingOptions = ({ attributes, setAttributes }) => {
 	const headingAlign = checkAttr('headingAlign', attributes, manifest);
+	const headingColor = checkAttr('headingColor', attributes, manifest);
 
 	return (
-		<PanelBody title={__('Heading', 'makewhatever')}>
-			<HeadingOptionsComponent
-				{...props('heading', attributes, { setAttributes })}
-				noExpandButton
-				noUseToggle
-				noLabel
-
-				additionalControlsBeforeHeadingLevel={
-					<OptionSelector
-						value={headingAlign}
-						options={getOption('headingAlign', attributes, manifest)}
-						onChange={(value) => setAttributes({ [getAttrKey('headingAlign', attributes, manifest)]: value })}
-						noBottomSpacing
-						iconOnly
+		<OptionsComponent
+			{...props('heading', attributes, {
+				setAttributes,
+			})}
+			additionalControls={
+				<>
+					<ColorPicker
+						colors={getColorOption('headingColor', manifest)}
+						onChange={(value) => setAttributes({ [getAttrKey('headingColor', attributes, manifest)]: value })}
+						type='textColor'
+						value={headingColor}
+						aria-label={__('Text color', 'makewhatever')}
 					/>
-				}
-			/>
-		</PanelBody>
+
+					<OptionSelect
+						value={headingAlign}
+						onChange={(value) => setAttributes({ [getAttrKey('headingAlign', attributes, manifest)]: value })}
+						options={getOption('headingAlign', attributes, manifest)}
+						aria-label={__('Text alignment', 'makewhatever')}
+					/>
+				</>
+			}
+			controlOnly
+		/>
 	);
 };

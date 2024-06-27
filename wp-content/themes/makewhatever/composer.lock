@@ -4,20 +4,20 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "0e94cc4aa27aa358d3d2a13af0d6310a",
+    "content-hash": "bfb280c80df54ee84fcf4df9fcfa16c0",
     "packages": [
         {
             "name": "infinum/eightshift-libs",
-            "version": "8.0.5",
+            "version": "dev-feature/tailwind",
             "source": {
                 "type": "git",
                 "url": "https://github.com/infinum/eightshift-libs.git",
-                "reference": "07400c88405f68f83189a4155612d27a6f7effb9"
+                "reference": "e3292db4239be580ae1fe23554d7119da205d436"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/infinum/eightshift-libs/zipball/07400c88405f68f83189a4155612d27a6f7effb9",
-                "reference": "07400c88405f68f83189a4155612d27a6f7effb9",
+                "url": "https://api.github.com/repos/infinum/eightshift-libs/zipball/e3292db4239be580ae1fe23554d7119da205d436",
+                "reference": "e3292db4239be580ae1fe23554d7119da205d436",
                 "shasum": ""
             },
             "require": {
@@ -44,7 +44,24 @@
                     "EightshiftLibs\\": "src/"
                 }
             },
-            "notification-url": "https://packagist.org/downloads/",
+            "scripts": {
+                "post-autoload-dump": [
+                    "vendor/bin/captainhook install -f -s"
+                ],
+                "test:types": [
+                    "@php ./vendor/bin/phpstan analyze"
+                ],
+                "test:standards": [
+                    "@php ./vendor/squizlabs/php_codesniffer/bin/phpcs --runtime-set testVersion 8.2-"
+                ],
+                "standards:fix": [
+                    "@php ./vendor/squizlabs/php_codesniffer/bin/phpcbf --runtime-set testVersion 8.2-"
+                ],
+                "test": [
+                    "@test:standards",
+                    "@test:types"
+                ]
+            },
             "license": [
                 "MIT"
             ],
@@ -59,18 +76,18 @@
             "description": "WordPress libs developed by Eightshift team to use in modern WordPress.",
             "homepage": "https://eightshift.com/",
             "keywords": [
+                "Gutenberg",
+                "WordPress",
                 "blocks",
                 "composer",
-                "gutenberg",
                 "installer",
-                "plugin",
-                "wordpress"
+                "plugin"
             ],
             "support": {
                 "issues": "https://github.com/infinum/eightshift-libs/issues",
                 "source": "https://github.com/infinum/eightshift-libs"
             },
-            "time": "2024-06-14T10:12:27+00:00"
+            "time": "2024-06-26T14:21:35+00:00"
         },
         {
             "name": "laravel/serializable-closure",
@@ -966,16 +983,16 @@
         },
         {
             "name": "phpstan/phpstan",
-            "version": "1.11.4",
+            "version": "1.11.5",
             "source": {
                 "type": "git",
                 "url": "https://github.com/phpstan/phpstan.git",
-                "reference": "9100a76ce8015b9aa7125b9171ae3a76887b6c82"
+                "reference": "490f0ae1c92b082f154681d7849aee776a7c1443"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phpstan/phpstan/zipball/9100a76ce8015b9aa7125b9171ae3a76887b6c82",
-                "reference": "9100a76ce8015b9aa7125b9171ae3a76887b6c82",
+                "url": "https://api.github.com/repos/phpstan/phpstan/zipball/490f0ae1c92b082f154681d7849aee776a7c1443",
+                "reference": "490f0ae1c92b082f154681d7849aee776a7c1443",
                 "shasum": ""
             },
             "require": {
@@ -1020,7 +1037,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2024-06-06T12:19:22+00:00"
+            "time": "2024-06-17T15:10:54+00:00"
         },
         {
             "name": "slevomat/coding-standard",
@@ -1233,16 +1250,16 @@
         },
         {
             "name": "symfony/polyfill-php73",
-            "version": "v1.29.0",
+            "version": "v1.30.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/polyfill-php73.git",
-                "reference": "21bd091060673a1177ae842c0ef8fe30893114d2"
+                "reference": "ec444d3f3f6505bb28d11afa41e75faadebc10a1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/polyfill-php73/zipball/21bd091060673a1177ae842c0ef8fe30893114d2",
-                "reference": "21bd091060673a1177ae842c0ef8fe30893114d2",
+                "url": "https://api.github.com/repos/symfony/polyfill-php73/zipball/ec444d3f3f6505bb28d11afa41e75faadebc10a1",
+                "reference": "ec444d3f3f6505bb28d11afa41e75faadebc10a1",
                 "shasum": ""
             },
             "require": {
@@ -1289,7 +1306,7 @@
                 "shim"
             ],
             "support": {
-                "source": "https://github.com/symfony/polyfill-php73/tree/v1.29.0"
+                "source": "https://github.com/symfony/polyfill-php73/tree/v1.30.0"
             },
             "funding": [
                 {
@@ -1305,7 +1322,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2024-01-29T20:11:03+00:00"
+            "time": "2024-05-31T15:07:36+00:00"
         },
         {
             "name": "szepeviktor/phpstan-wordpress",
@@ -1622,7 +1639,9 @@
     ],
     "aliases": [],
     "minimum-stability": "dev",
-    "stability-flags": [],
+    "stability-flags": {
+        "infinum/eightshift-libs": 20
+    },
     "prefer-stable": true,
     "prefer-lowest": false,
     "platform": {

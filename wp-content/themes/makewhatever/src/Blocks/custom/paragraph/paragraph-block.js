@@ -1,15 +1,14 @@
 import React from 'react';
-import { InspectorControls } from '@wordpress/block-editor';
 import { ParagraphEditor } from './components/paragraph-editor';
 import { ParagraphOptions } from './components/paragraph-options';
+import { GutenbergBlock } from '@eightshift/frontend-libs-tailwind/scripts';
 
 export const Paragraph = (props) => {
 	return (
-		<>
-			<InspectorControls>
-				<ParagraphOptions {...props} />
-			</InspectorControls>
-			<ParagraphEditor {...props} />
-		</>
+		<GutenbergBlock
+			{...props}
+			options={ParagraphOptions}
+			editor={ParagraphEditor}
+		/>
 	);
 };

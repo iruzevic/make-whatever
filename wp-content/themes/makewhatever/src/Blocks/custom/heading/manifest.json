@@ -1,5 +1,5 @@
 {
-	"$schema": "https://raw.githubusercontent.com/infinum/eightshift-frontend-libs/develop/schemas/block.json",
+	"$schema": "https://raw.githubusercontent.com/infinum/eightshift-frontend-libs-tailwind/main/schemas/block.json",
 	"blockName": "heading",
 	"title": "Heading",
 	"description" : "Heading block with custom settings.",
@@ -14,13 +14,17 @@
 	],
 	"example": {
 		"attributes": {
-			"headingAlign": "left"
+			"headingAlign": "start"
 		}
 	},
 	"attributes": {
 		"headingAlign": {
 			"type": "string",
-			"default": "left"
+			"default": "start"
+		},
+		"headingColor": {
+			"type": "string",
+			"default": "black"
 		}
 	},
 	"components": {
@@ -29,29 +33,47 @@
 	"options": {
 		"headingAlign": [
 			{
-				"label": "Left",
-				"value": "left",
+				"tooltip": "Start",
+				"value": "start",
 				"icon": "textAlignLeft"
 			},
 			{
-				"label": "Center",
+				"tooltip": "Center",
 				"value": "center",
 				"icon": "textAlignCenter"
 			},
 			{
-				"label": "Right",
-				"value": "right",
+				"tooltip": "End",
+				"value": "end",
 				"icon": "textAlignRight"
 			}
+		],
+		"headingColor": [
+			"white",
+			"black",
+			"navy-500",
+			"red-500",
+			"red-50"
 		]
 	},
-	"variables": {
-		"headingAlign": [
-			{
-				"variable": {
-					"block-heading-align": "%value%"
+	"tailwind": {
+		"options": {
+			"headingAlign": {
+				"twClasses": {
+					"start": "text-start",
+					"center": "text-center",
+					"end": "text-end"
+				}
+			},
+			"headingColor": {
+				"twClasses": {
+					"black": "text-gray-900 [&>a]:text-navy-900",
+					"white": "text-gray-50 [&>a]:text-navy-900",
+					"navy-500": "text-navy-500 [&>a]:text-navy-900",
+					"red-500": "text-red-500 [&>a]:text-navy-900",
+					"red-50": "text-red-50 [&>a]:text-red-300"
 				}
 			}
-		]
+		}
 	}
 }

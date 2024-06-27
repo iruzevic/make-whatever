@@ -1,129 +1,63 @@
 import React from 'react';
 import { __ } from '@wordpress/i18n';
-import {
-	icons,
-	getOption,
-	checkAttr,
-	getAttrKey,
-	IconLabel,
-	UseToggle,
-	ucfirst,
-	Select,
-	ColorPicker,
-	Section,
-	generateUseToggleConfig,
-	Menu,
-	MenuItem,
-} from '@eightshift/frontend-libs/scripts';
+import { getOption, checkAttr, getAttrKey, getHiddenOptions } from '@eightshift/frontend-libs-tailwind/scripts';
+import { ComponentToggle, HStack, OptionSelect } from '@eightshift/ui-components';
+import { icons } from '@eightshift/ui-components/icons';
 import manifest from './../manifest.json';
 
 export const HeadingOptions = (attributes) => {
-	const {
-		setAttributes,
+	const { setAttributes, hideOptions, additionalControls, ...rest } = attributes;
 
-		hideColor = false,
-		hideSize = false,
-		hideFontWeight = false,
+	const hiddenOptions = getHiddenOptions(hideOptions);
 
-		hideHeadingLevel = false,
+	const headingUse = checkAttr('headingUse', attributes, manifest);
+	const headingSize = checkAttr('headingSize', attributes, manifest);
+	const headingTag = checkAttr('headingTag', attributes, manifest);
 
-		additionalControls,
-	} = attributes;
-
-	const headingColor = checkAttr('headingColor', attributes, manifest);
-	const headingLevel = checkAttr('headingLevel', attributes, manifest);
-
-	const [fontSize, fontWeight] = checkAttr('headingSize', attributes, manifest)?.split(':') ?? '';
-
-	const fontSizes = getOption('headingSize', attributes, manifest).reduce((all, { label, value, weights }) => ({
-		...all,
-		[value]: {
-			label: label,
-			value: value,
-			weights: weights,
-			weightOptions: weights.map((weight) => ({ label: ucfirst(weight), value: weight })),
-		},
-	}), {});
-
-	const headingLevels = [
-		{ label: 'H1', tooltip: __('Heading 1', 'makewhatever'), value: 1 },
-		{ label: 'H2', tooltip: __('Heading 2', 'makewhatever'), value: 2 },
-		{ label: 'H3', tooltip: __('Heading 3', 'makewhatever'), value: 3 },
-		{ label: 'H4', tooltip: __('Heading 4', 'makewhatever'), value: 4 },
-		{ label: 'H5', tooltip: __('Heading 5', 'makewhatever'), value: 5 },
-		{ label: 'H6', tooltip: __('Heading 6', 'makewhatever'), value: 6 },
+	const headingTags = [
+		{ label: __('Heading 1', 'makewhatever'), value: 'h1' },
+		{ label: __('Heading 2', 'makewhatever'), value: 'h2' },
+		{ label: __('Heading 3', 'makewhatever'), value: 'h3' },
+		{ label: __('Heading 4', 'makewhatever'), value: 'h4' },
+		{ label: __('Heading 5', 'makewhatever'), value: 'h5' },
+		{ label: __('Heading 6', 'makewhatever'), value: 'h6' },
+		{ label: __('Paragraph', 'makewhatever'), value: 'p' },
 	];
 
 	return (
-		<UseToggle {...generateUseToggleConfig(attributes, manifest, 'headingUse')}>
-			<Section
-				showIf={!hideColor || !hideSize || !hideFontWeight}
-				additionalClasses='es-h-spaced'
-				reducedBottomSpacing={additionalControls}
-				noBottomSpacing={typeof additionalControls === 'undefined'}
-			>
-				{!hideColor &&
-					<ColorPicker
-						label={(!hideSize && !hideFontWeight) ? null : <IconLabel icon={icons.color} label={__('Color', 'makewhatever')} />}
-						colors={getOption('headingColor', attributes, manifest, true)}
-						value={headingColor}
-						onChange={(value) => setAttributes({ [getAttrKey('headingColor', attributes, manifest)]: value })}
-						type='textColor'
-						noBottomSpacing
-						border
-					/>
-				}
+		<ComponentToggle
+			label={manifest.title}
+			icon={icons.heading}
+			onChange={(value) => setAttributes({ [getAttrKey('headingUse', attributes, manifest)]: value })}
+			useComponent={headingUse}
+			{...rest}
+		>
+			<HStack>
+				<OptionSelect
+					aria-label={__('Font size', 'makewhatever')}
+					options={getOption('headingSize', attributes, manifest)}
+					onChange={(value) => setAttributes({ [getAttrKey('headingSize', attributes, manifest)]: value })}
+					value={headingSize}
+					hidden={hiddenOptions?.size}
+					type='menu'
+				/>
 
-				{!hideSize &&
-					<Select
-						value={fontSize}
-						options={Object.values(fontSizes)}
-						onChange={(value) => setAttributes({
-							[getAttrKey('headingSize', attributes, manifest)]: `${value}:${fontSizes[value]?.weights[0] ?? 'bold'}`,
-						})}
-						additionalSelectClasses='es-w-16'
-						placeholder={__('Size', 'makewhatever')}
-						noBottomSpacing
-						simpleValue
-						noSearch
-					/>
-				}
+				<OptionSelect
+					aria-label={__('Heading level', 'makewhatever')}
+					options={headingTags}
+					value={headingTag}
+					onChange={(value) => setAttributes({ [getAttrKey('headingTag', attributes, manifest)]: value })}
+					type='menu'
+					wrapperProps={{
+						triggerIcon: <span className='es-uic-font-mono uppercase'>{headingTag}</span>,
+						tooltip: __('Heading level', 'makewhatever'),
+					}}
+					hidden={hiddenOptions?.headingLevel}
+					noTriggerLabel
+				/>
 
-				{!hideFontWeight && fontSizes[fontSize]?.weightOptions?.length > 0 &&
-					<Select
-						value={fontWeight}
-						options={fontSizes[fontSize]?.weightOptions}
-						onChange={(value) => setAttributes({ [getAttrKey('headingSize', attributes, manifest)]: `${fontSize}:${value}` })}
-						additionalSelectClasses='es-w-22 es-flex-shrink-0 es-flex-grow-1'
-						placeholder={__('Weight', 'makewhatever')}
-						noBottomSpacing
-						simpleValue
-						noSearch
-					/>
-				}
-
-				{!hideHeadingLevel &&
-					<Menu
-						icon={<span className='es-text-4.5 es-font-weight-300 es-tabular-nums'>H{headingLevel}</span>}
-						tooltip={__('Heading level', 'makewhatever')}
-						additionalClass='es-button-square-36 es-is-v2-gutenberg-input-matched-button'
-					>
-						{headingLevels.map(({ tooltip, value }) => {
-							return (
-								<MenuItem
-									key={value}
-									label={tooltip}
-									icon={headingLevel === value ? icons.check : icons.dummySpacer}
-									onClick={() => setAttributes({ [getAttrKey('headingLevel', attributes, manifest)]: value })}
-									additionalClass='es-nested-p-1'
-								/>
-							);
-						})}
-					</Menu>
-				}
-			</Section>
-
-			{additionalControls}
-		</UseToggle>
+				{additionalControls}
+			</HStack>
+		</ComponentToggle>
 	);
 };

@@ -11,63 +11,48 @@ use MakewhateverVendor\EightshiftLibs\Helpers\Helpers;
 $globalManifest = Helpers::getSettings();
 $manifest = Helpers::getManifestByDir(__DIR__);
 
-$imageUse = Helpers::checkAttr('imageUse', $attributes, $manifest) ?? false;
-$imageUrl = Helpers::checkAttrResponsive('imageUrl', $attributes, $manifest);
+$additionalClass = $attributes['additionalClass'] ?? '';
 
-if (!$imageUse || !isset($imageUrl['large']) || empty($imageUrl['large'])) {
+$imageUse = Helpers::checkAttr('imageUse', $attributes, $manifest) ?? false;
+$imageData = Helpers::checkAttr('imageData', $attributes, $manifest);
+
+if (!$imageUse || empty($imageData['_default']['url'])) {
 	return;
 }
 
-$unique = Helpers::getUnique();
+$imageAlt = get_post_meta($imageData['_default']['id'], '_wp_attachment_image_alt', true) ?? '';
 
-$componentClass = $manifest['componentClass'] ?? '';
-$additionalClass = $attributes['additionalClass'] ?? '';
-$blockClass = $attributes['blockClass'] ?? '';
-$selectorClass = $attributes['selectorClass'] ?? $componentClass;
+$isMobileFirst = $imageData['_mobileFirst'] ?? false;
 
-$imageAlt = Helpers::checkAttr('imageAlt', $attributes, $manifest) ?? '';
-
-$pictureClass = Helpers::classnames([
-	Helpers::selector($componentClass, $componentClass),
-	Helpers::selector($blockClass, $blockClass, $selectorClass),
-	Helpers::selector($additionalClass, $additionalClass),
-]);
-
-$imgClass = Helpers::classnames([
-	Helpers::selector($componentClass, $componentClass, 'img'),
-	Helpers::selector($blockClass, $blockClass, "{$selectorClass}-img"),
-]);
+$breakpointData = Helpers::getSettingsGlobalVariablesBreakpoints();
+$breakpoints = Helpers::getTwBreakpoints($isMobileFirst);
 ?>
 
-<picture class="<?php echo esc_attr($pictureClass); ?>" data-id="<?php echo esc_attr($unique); ?>">
-
-	<?php
-	echo Helpers::outputCssVariables($attributes, $manifest, $unique);
-	?>
-
-	<?php foreach (array_reverse($imageUrl) as $breakpoint => $item) { ?>
+<picture class="<?php echo esc_attr(Helpers::getTwPart('picture', $manifest, $additionalClass['picture'] ?? '')); ?>">
+	<?php foreach ($breakpoints as $breakpoint) { ?>
 		<?php
-		if ($breakpoint === 'large') {
-			continue;
-		}
-		if (!$item) {
+		if (!isset($imageData[$breakpoint])) {
 			continue;
 		}
 
-		$breakpointValue = $globalManifest['globalVariables']['breakpoints'][$breakpoint] ?? ''; // @phpstan-ignore-line
+		$value = $imageData[$breakpoint]['url'] ?? '';
 
-		if (!$breakpointValue) {
+		if (empty($value)) {
 			continue;
 		}
 
-		// phpcs:ignore Eightshift.Security.EscapeOutput.OutputNotEscaped
-		echo '<source srcset="' . esc_url($item) . '" media="(max-width: ' . esc_attr($breakpointValue) . 'px)" />';
+		$breakpointWidth = $breakpointData[str_replace('max-', '', $breakpoint)];
+
+		$widthMode = $isMobileFirst ? 'max-width' : 'min-width';
+
+		// phpcs:ignore Eightshift.Security.HelpersEscape.OutputNotEscaped
+		echo '<source srcset="' . esc_url($value) . '" media="(' . $widthMode . ': ' . $breakpointWidth . 'rem)" />';
 		?>
 	<?php } ?>
 
 	<img
-		src="<?php echo esc_url($imageUrl['large']); ?>"
+		src="<?php echo esc_url($imageData['_default']['url'] ?? ''); ?>"
 		alt="<?php echo esc_attr($imageAlt); ?>"
-		class="<?php echo esc_attr($imgClass); ?>"
+		class="<?php echo esc_attr(Helpers::getTwClasses($attributes, $manifest, $additionalClass['image'] ?? $additionalClass)); ?>"
 	/>
 </picture>

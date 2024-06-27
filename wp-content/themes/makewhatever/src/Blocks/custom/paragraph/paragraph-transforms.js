@@ -25,27 +25,20 @@ export const transforms = {
 			type: 'raw',
 			priority: 20,
 			selector: 'p',
-			schema: ({phrasingContentSchema, isPaste}) => ({
+			schema: ({ phrasingContentSchema, isPaste }) => ({
 				p: {
 					children: phrasingContentSchema,
-					attributes: isPaste ? [] : [ 'style', 'id' ],
+					attributes: isPaste ? [] : ['style', 'id'],
 				},
 			}),
-			transform( node ) {
-				const {
-					namespace,
-				} = globalManifest;
+			transform(node) {
+				const { namespace } = globalManifest;
 
-				const {
-					blockName,
-				} = manifestParagraph;
+				const { blockName } = manifestParagraph;
 
-				return createBlock(
-					`${namespace}/${blockName}`,
-					{
-						paragraphParagraphContent: node.innerHTML
-					}
-				);
+				return createBlock(`${namespace}/${blockName}`, {
+					paragraphParagraphContent: node.innerHTML,
+				});
 			},
 		},
 	],

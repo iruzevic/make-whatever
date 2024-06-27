@@ -1,8 +1,7 @@
 import domReady from '@wordpress/dom-ready';
 
 domReady(() => {
-	const selector = '.js-scroll-to-anchor';
-	const elements = document.querySelectorAll(selector);
+	const elements = document.querySelectorAll('.button[href^="#"]');
 
 	if (!elements.length) {
 		return;

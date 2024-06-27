@@ -1,13 +1,11 @@
 /**
- * This is the main entry point for Block Editor blocks used for the `WordPress admin editor`.
- * This file registers styles and scripts.
- *
- * Usage: `WordPress admin editor`.
+ * Main entry point for scripts used in the Block editor.
  */
 
 // Styles.
-import './styles/application-blocks-editor-components.scss';
-import './styles/application-blocks-editor.scss';
+import './styles/tailwind.css';
+import './styles/application-blocks-editor.css';
+import './styles/editor/editor-overrides.css';
 
 // Scripts.
 import './scripts/application-blocks-editor';

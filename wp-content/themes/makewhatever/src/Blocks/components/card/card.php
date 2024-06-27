@@ -9,44 +9,34 @@
 use MakewhateverVendor\EightshiftLibs\Helpers\Helpers;
 
 $manifest = Helpers::getManifestByDir(__DIR__);
-
-$componentClass = $manifest['componentClass'] ?? '';
 $additionalClass = $attributes['additionalClass'] ?? '';
-$blockClass = $attributes['blockClass'] ?? '';
-$selectorClass = $attributes['selectorClass'] ?? $componentClass;
-
-$unique = Helpers::getUnique();
-
-$cardClass = Helpers::classnames([
-	Helpers::selector($componentClass, $componentClass),
-	Helpers::selector($blockClass, $blockClass, $selectorClass),
-	Helpers::selector($additionalClass, $additionalClass),
-]);
 ?>
 
-<div class="<?php echo esc_attr($cardClass); ?>" data-id="<?php echo esc_attr($unique); ?>">
+<div class="<?php echo esc_attr(Helpers::getTwClasses($attributes, $manifest, $additionalClass)); ?>" >
 	<?php
-	echo Helpers::outputCssVariables($attributes, $manifest, $unique),
-
-	Helpers::render('image', Helpers::props('image', $attributes, [
-		'blockClass' => $componentClass,
-	])),
-
-	Helpers::render('heading', Helpers::props('intro', $attributes, [
-		'selectorClass' => 'intro',
-		'blockClass' => $componentClass
-	])),
-
-	Helpers::render('heading', Helpers::props('heading', $attributes, [
-		'blockClass' => $componentClass
-	])),
-
-	Helpers::render('paragraph', Helpers::props('paragraph', $attributes, [
-		'blockClass' => $componentClass
-	])),
-
-	Helpers::render('button', Helpers::props('button', $attributes, [
-		'blockClass' => $componentClass
+	echo Helpers::render('image', Helpers::props('image', $attributes, [
+		'additionalClass' => [
+			'image' => Helpers::getTwPart('image', $manifest),
+			'picture' => Helpers::getTwPart('imagePicture', $manifest),
+		]
 	]));
 	?>
+
+	<div class="<?php echo esc_attr(Helpers::getTwPart('content-container', $manifest)); ?>">
+		<?php
+		echo Helpers::render('paragraph', Helpers::props('intro', $attributes, [
+			'additionalClass' => Helpers::getTwPart('intro', $manifest),
+		])),
+
+		Helpers::render('heading', Helpers::props('heading', $attributes)),
+
+		Helpers::render('paragraph', Helpers::props('paragraph', $attributes, [
+			'additionalClass' => Helpers::getTwPart('text', $manifest),
+		])),
+
+		Helpers::render('button', Helpers::props('button', $attributes, [
+			'additionalClass' => Helpers::getTwPart('button', $manifest),
+		]));
+		?>
+	</div>
 </div>

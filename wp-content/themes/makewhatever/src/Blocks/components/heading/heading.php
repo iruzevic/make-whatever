@@ -16,34 +16,22 @@ if (!$headingUse) {
 	return;
 }
 
-$componentClass = $manifest['componentClass'] ?? '';
 $additionalClass = $attributes['additionalClass'] ?? '';
-$blockClass = $attributes['blockClass'] ?? '';
-$selectorClass = $attributes['selectorClass'] ?? $componentClass;
 
 $headingContent = Helpers::checkAttr('headingContent', $attributes, $manifest);
-$headingLevel = Helpers::checkAttr('headingLevel', $attributes, $manifest);
+$headingTag = Helpers::checkAttr('headingTag', $attributes, $manifest);
 
 if (!$headingContent) {
 	return;
 }
-
-$headingClass = Helpers::classnames([
-	Helpers::selector($componentClass, $componentClass),
-	Helpers::selector($blockClass, $blockClass, $selectorClass),
-	Helpers::selector($additionalClass, $additionalClass),
-]);
-
-$headingLevel = $headingLevel ? "h{$headingLevel}" : 'h2';
-
-$unique = Helpers::getUnique();
 ?>
 
-<?php echo Helpers::outputCssVariables($attributes, $manifest, $unique); ?>
-
-<<?php echo esc_attr($headingLevel); ?> class="<?php echo esc_attr($headingClass); ?>" data-id="<?php echo esc_attr($unique); ?>">
+<<?php echo esc_attr($headingTag); ?>
+	data-slug="<?php echo esc_attr(sanitize_title(idn_to_ascii($headingContent))) ?>"
+	class="<?php echo esc_attr(Helpers::getTwClasses($attributes, $manifest, $additionalClass)); ?>"
+>
 	<?php
-		// phpcs:ignore Eightshift.Security.ComponentsEscape.OutputNotEscaped
+		// phpcs:ignore Eightshift.Security.HelpersEscape.OutputNotEscaped
 		echo $headingContent;
 	?>
-</<?php echo esc_attr($headingLevel); ?>>
+</<?php echo esc_attr($headingTag); ?>>

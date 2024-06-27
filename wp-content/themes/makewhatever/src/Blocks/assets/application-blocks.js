@@ -1,9 +1,6 @@
 /**
- * This is the main entry point for Block Editor blocks used for the `WordPress frontend screen` and `WordPress admin editor`.
- * This file registers styles and scripts.
- *
- * Usage: `WordPress frontend screen` and `WordPress admin editor`.
+ * Main entry point for scripts used both in the Block editor and the site frontend.
  */
 
 // Styles.
-import './styles/application-blocks.scss';
+import './styles/application-blocks.css';

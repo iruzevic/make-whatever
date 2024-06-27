@@ -11,35 +11,23 @@ use MakewhateverVendor\EightshiftLibs\Helpers\Helpers;
 $manifest = Helpers::getManifestByDir(__DIR__);
 
 $paragraphUse = Helpers::checkAttr('paragraphUse', $attributes, $manifest);
+
 if (!$paragraphUse) {
 	return;
 }
 
-$unique = Helpers::getUnique();
-
-$componentClass = $manifest['componentClass'] ?? '';
 $additionalClass = $attributes['additionalClass'] ?? '';
-$blockClass = $attributes['blockClass'] ?? '';
-$selectorClass = $attributes['selectorClass'] ?? $componentClass;
 
 $paragraphContent = Helpers::checkAttr('paragraphContent', $attributes, $manifest);
 
 if (!$paragraphContent) {
 	return;
 }
-
-$paragraphClass = Helpers::classnames([
-	Helpers::selector($componentClass, $componentClass),
-	Helpers::selector($blockClass, $blockClass, $selectorClass),
-	Helpers::selector($additionalClass, $additionalClass),
-]);
 ?>
 
-<?php echo Helpers::outputCssVariables($attributes, $manifest, $unique); ?>
-
-<p class="<?php echo esc_attr($paragraphClass); ?>" data-id="<?php echo esc_attr($unique); ?>">
+<p class="<?php echo esc_attr(Helpers::getTwClasses($attributes, $manifest, $additionalClass)); ?>">
 	<?php
-		// phpcs:ignore Eightshift.Security.ComponentsEscape.OutputNotEscaped
+		// phpcs:ignore Eightshift.Security.HelpersEscape.OutputNotEscaped
 		echo $paragraphContent;
 	?>
 </p>

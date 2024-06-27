@@ -1,81 +1,49 @@
 import React from 'react';
 import { __ } from '@wordpress/i18n';
-import { checkAttr, getAttrKey, getOption, UseToggle, ColorPicker, ucfirst, Select, generateUseToggleConfig, Section } from '@eightshift/frontend-libs/scripts';
+import { checkAttr, getAttrKey, getHiddenOptions, getOption } from '@eightshift/frontend-libs-tailwind/scripts';
+import { ComponentToggle, HStack, OptionSelect, ToggleButton } from '@eightshift/ui-components';
+import { icons } from '@eightshift/ui-components/icons';
 import manifest from './../manifest.json';
 
 export const ParagraphOptions = (attributes) => {
-	const {
-		setAttributes,
+	const { setAttributes, hideOptions, additionalControls, ...rest } = attributes;
 
-		hideColor = false,
-		hideSize = false,
-		hideWeight = false,
+	const hiddenOptions = getHiddenOptions(hideOptions);
 
-		additionalControls,
-	} = attributes;
-
-	const paragraphColor = checkAttr('paragraphColor', attributes, manifest);
-	const [fontSize, fontWeight] = checkAttr('paragraphSize', attributes, manifest)?.split(':') ?? '';
-
-	const fontSizes = getOption('paragraphSize', attributes, manifest).reduce((all, { label, value, weights }) => ({
-		...all,
-		[value]: {
-			label: label,
-			value: value,
-			weights: weights,
-			weightOptions: weights.map((weight) => ({ label: ucfirst(weight), value: weight })),
-		},
-	}), {});
+	const paragraphUse = checkAttr('paragraphUse', attributes, manifest);
+	const paragraphSize = checkAttr('paragraphSize', attributes, manifest);
+	const paragraphFontWeight = checkAttr('paragraphFontWeight', attributes, manifest);
 
 	return (
-		<UseToggle {...generateUseToggleConfig(attributes, manifest, 'paragraphUse')}>
-			<Section
-				showIf={!hideColor || !hideSize || !hideWeight}
-				reducedBottomSpacing={additionalControls}
-				noBottomSpacing={!additionalControls}
-				additionalClasses='es-h-spaced'
-			>
-				{!hideColor &&
-					<ColorPicker
-						colors={getOption('paragraphColor', attributes, manifest, true)}
-						value={paragraphColor}
-						onChange={(value) => setAttributes({ [getAttrKey('paragraphColor', attributes, manifest)]: value })}
-						type='textColor'
-						noBottomSpacing
-						border
-					/>
-				}
+		<ComponentToggle
+			label={manifest.title}
+			icon={icons.paragraph}
+			onChange={(value) => setAttributes({ [getAttrKey('paragraphUse', attributes, manifest)]: value })}
+			useComponent={paragraphUse}
+			{...rest}
+		>
+			<HStack>
+				<OptionSelect
+					aria-label={__('Font size', 'makewhatever')}
+					options={getOption('paragraphSize', attributes, manifest)}
+					onChange={(value) => setAttributes({ [getAttrKey('paragraphSize', attributes, manifest)]: value })}
+					value={paragraphSize}
+					type='menu'
+					hidden={hiddenOptions.size}
+				/>
 
-				{!hideSize &&
-					<Select
-						value={fontSize}
-						options={Object.values(fontSizes)}
-						onChange={(value) => setAttributes({
-							[getAttrKey('paragraphSize', attributes, manifest)]: `${value}:${fontSizes[value]?.weights[0] ?? 'bold'}`,
-						})}
-						additionalSelectClasses='es-w-16'
-						placeholder={__('Size', 'makewhatever')}
-						noBottomSpacing
-						simpleValue
-						noSearch
-					/>
-				}
+				<ToggleButton
+					selected={paragraphFontWeight === '700'}
+					icon={icons.bold}
+					onChange={(value) =>
+						setAttributes({ [getAttrKey('paragraphFontWeight', attributes, manifest)]: value ? '700' : '400' })
+					}
+					tooltip={__('Bold', 'makewhatever')}
+					hidden={hiddenOptions.weight}
+				/>
 
-				{!hideWeight && fontSizes[fontSize]?.weightOptions?.length > 0 &&
-					<Select
-						value={fontWeight}
-						options={fontSizes[fontSize]?.weightOptions}
-						onChange={(value) => setAttributes({ [getAttrKey('paragraphSize', attributes, manifest)]: `${fontSize}:${value}` })}
-						additionalSelectClasses='es-w-22 es-flex-shrink-0 es-flex-grow-1'
-						placeholder={__('Weight', 'makewhatever')}
-						noBottomSpacing
-						simpleValue
-						noSearch
-					/>
-				}
-			</Section>
-
-			{additionalControls}
-		</UseToggle>
+				{additionalControls}
+			</HStack>
+		</ComponentToggle>
 	);
 };

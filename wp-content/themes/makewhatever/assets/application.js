@@ -1,19 +1,16 @@
 /**
- * This is the main entry point for Application used for the `WordPress frontend screen`.
- * This file registers styles and scripts and all other assets only for the WordPress frontend screen.
- * You would load images, fonts, helpers, header, footed, etc, everything not related to Block Editor here.
- *
- * Usage: `WordPress frontend screen`.
+ * Main entry point for styles, scripts, and other assets used in the site frontend.
+ * Don't load Block editor-related assets here!
  */
 
-// Load Styles
-import './styles/application.scss';
+// Styles.
+import './styles/application.css';
 
-// // Load Scripts
+// Scripts.
 import './scripts/application';
 
-// Load images
+// Images.
 import './images';
 
-// Load fonts
+// Fonts.
 import './fonts';

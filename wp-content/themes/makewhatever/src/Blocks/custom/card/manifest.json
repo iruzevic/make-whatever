@@ -1,5 +1,5 @@
 {
-	"$schema": "https://raw.githubusercontent.com/infinum/eightshift-frontend-libs/develop/schemas/block.json",
+	"$schema": "https://raw.githubusercontent.com/infinum/eightshift-frontend-libs-tailwind/main/schemas/block.json",
 	"blockName": "card",
 	"title": "Card",
 	"description" : "Card with custom settings.",
@@ -14,17 +14,5 @@
 	],
 	"components": {
 		"card": "card"
-	},
-	"options": {
-		"cardCardIntroSize": [
-			"h4",
-			"h5",
-			"h6"
-		],
-		"cardCardHeadingSize": [
-			"h2",
-			"h3",
-			"h4"
-		]
 	}
 }

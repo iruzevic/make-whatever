@@ -1,15 +1,9 @@
 import React from 'react';
 import { InnerBlocks } from '@wordpress/block-editor';
-import { BlockInserter } from '@eightshift/frontend-libs/scripts';
+import { BlockInserter } from '@eightshift/frontend-libs-tailwind/scripts';
 
-export const GroupEditor = ({ attributes, clientId }) => {
-	const {
-		blockClass,
-	} = attributes;
-
+export const GroupEditor = ({ clientId }) => {
 	return (
-		<div className={blockClass}>
-			<InnerBlocks renderAppender={() => <BlockInserter clientId={clientId} additionalClasses='es-mb-6' />} />
-		</div>
+		<InnerBlocks renderAppender={() => <BlockInserter clientId={clientId} />} />
 	);
 };

@@ -15,9 +15,7 @@ use Makewhatever\AdminMenus\ReusableBlocksHeaderFooter;
 <head>
 	<?php
 	// Head component.
-	echo Helpers::render('head', [
-		'icon' => Helpers::getAsset('logo.svg'),
-	]);
+	echo Helpers::render('head');
 
 	wp_head();
 	?>

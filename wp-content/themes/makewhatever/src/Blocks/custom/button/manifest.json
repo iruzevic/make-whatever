@@ -1,8 +1,8 @@
 {
-	"$schema": "https://raw.githubusercontent.com/infinum/eightshift-frontend-libs/develop/schemas/block.json",
+	"$schema": "https://raw.githubusercontent.com/infinum/eightshift-frontend-libs-tailwind/main/schemas/block.json",
 	"blockName": "button",
 	"title": "Button",
-	"description" : "Button block with custom settings.",
+	"description": "Button block with custom settings.",
 	"category": "eightshift",
 	"icon": {
 		"src": "es-button"
@@ -12,41 +12,7 @@
 		"btn",
 		"link"
 	],
-	"attributes": {
-		"buttonAlign": {
-			"type": "string",
-			"default": "left"
-		}
-	},
 	"components": {
 		"button": "button"
-	},
-	"options": {
-		"buttonAlign": [
-			{
-				"label": "Left",
-				"value": "left",
-				"icon": "positionHStart"
-			},
-			{
-				"label": "Center",
-				"value": "center",
-				"icon": "positionHCenter"
-			},
-			{
-				"label": "Right",
-				"value": "right",
-				"icon": "positionHEnd"
-			}
-		]
-	},
-	"variables": {
-		"buttonAlign": [
-			{
-				"variable": {
-					"block-button-align": "%value%"
-				}
-			}
-		]
 	}
 }

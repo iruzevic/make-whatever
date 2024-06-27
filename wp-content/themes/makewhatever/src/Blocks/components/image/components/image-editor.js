@@ -1,94 +1,66 @@
-import React, { useMemo } from 'react';
-import { MediaPlaceholder } from '@wordpress/block-editor';
+import React from 'react';
 import {
-	isEmpty,
-	selector,
 	checkAttr,
-	checkAttrResponsive,
-	getAttrKey,
-	outputCssVariables,
-	getUnique,
-	icons,
-	classnames,
-	getDefaultBreakpointNames,
-} from '@eightshift/frontend-libs/scripts';
+	getBreakpointData,
+	getBreakpointNames,
+	getTwClasses,
+	getTwPart,
+} from '@eightshift/frontend-libs-tailwind/scripts';
+import { ImagePlaceholder } from '@eightshift/ui-components';
 import manifest from './../manifest.json';
-import globalManifest from './../../../manifest.json';
 
 export const ImageEditor = (attributes) => {
-	const unique = useMemo(() => getUnique(), []);
-
-	const {
-		componentClass,
-	} = manifest;
-
-	const {
-		setAttributes,
-		selectorClass = componentClass,
-		blockClass,
-		additionalClass,
-	} = attributes;
+	const { additionalClass } = attributes;
 
 	const imageUse = checkAttr('imageUse', attributes, manifest);
-	const imageAlt = checkAttr('imageAlt', attributes, manifest);
-	const imageAccept = checkAttr('imageAccept', attributes, manifest);
-	const imageAllowedTypes = checkAttr('imageAllowedTypes', attributes, manifest);
-	const imageUrl = checkAttrResponsive('imageUrl', attributes, manifest);
+	const imageData = checkAttr('imageData', attributes, manifest);
 
-	const pictureClass = classnames(
-		selector(componentClass, componentClass),
-		selector(blockClass, blockClass, selectorClass),
-		selector(additionalClass, additionalClass),
-	);
-
-	const imgClass = classnames(
-		selector(componentClass, componentClass, 'img'),
-		selector(blockClass, blockClass, `${selectorClass}-img`),
-	);
-
-	if (!imageUse) {
+	if (!imageUse || typeof imageData?.['_default'] === 'undefined') {
 		return null;
 	}
 
+	const isMobileFirst = imageData['_mobileFirst'] ?? false;
+
+	const breakpointNames = getBreakpointNames();
+	const breakpointData = getBreakpointData();
+
 	return (
 		<>
-			{outputCssVariables(attributes, manifest, unique, globalManifest)}
-
-			{isEmpty(imageUrl['large']) &&
-				<MediaPlaceholder
-					icon={icons.image}
-					onSelect={(value) => setAttributes({ [getAttrKey('imageUrl', attributes, manifest)]: value.url })}
-					accept={imageAccept}
-					allowedTypes={imageAllowedTypes}
-				/>
-			}
-
-			{!isEmpty(imageUrl['large']) &&
-				<picture className={pictureClass} data-id={unique}>
-					{getDefaultBreakpointNames().reverse().map((breakpointName) => {
-						if (breakpointName === 'large') {
-							return (
-								<img className={imgClass} src={imageUrl[breakpointName]} alt={imageAlt} key={breakpointName} />
-							);
-						}
-
-						if (imageUrl?.[breakpointName]?.length < 1) {
+			{imageData?.['_default']?.url && (
+				<picture className={getTwPart('picture', manifest, additionalClass?.picture)}>
+					{breakpointNames.map((breakpointName) => {
+						if (!imageData?.[breakpointName]?.url) {
 							return null;
 						}
 
-						const breakpointWidth = globalManifest?.globalVariables?.breakpoints?.[breakpointName];
+						const breakpointWidth = breakpointData?.[breakpointName];
 
 						if (!breakpointWidth) {
 							return null;
 						}
 
 						return (
-							<source srcSet={imageUrl[breakpointName]} media={`(max-width: ${breakpointWidth}px)`} key={breakpointName} />
+							<source
+								key={breakpointName}
+								srcSet={imageData?.[breakpointName]?.url}
+								media={`(${isMobileFirst ? 'min-width' : 'max-width'}: ${breakpointWidth}em)`}
+							/>
 						);
 					})}
+					<img
+						className={getTwClasses(attributes, manifest, additionalClass?.image ?? additionalClass)}
+						src={imageData?.['_default'].url}
+					/>
 				</picture>
-			}
+			)}
 
+			{!imageData?.['_default']?.url && (
+				<ImagePlaceholder
+					style='simple'
+					size='large'
+					className={additionalClass?.imagePlaceholder}
+				/>
+			)}
 		</>
 	);
 };

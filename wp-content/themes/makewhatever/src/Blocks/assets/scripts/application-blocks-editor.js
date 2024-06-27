@@ -1,27 +1,32 @@
 /**
- * This is the main entry point for Block Editor blocks scripts used for the `WordPress admin editor`.
- * This file registers blocks dynamically using `registerBlocks` helper method.
- * File names must follow the naming convention to be able to run dynamically.
+ * Main entry point for scripts used in the Block editor.
  *
- * `src/blocks/custom/block_name/manifest.json`.
- * `src/blocks/custom/block_name/block_name.js`.
+ * Block registration occurs here, in the `registerBlocks` method.
  *
- * Usage: `WordPress admin editor`.
+ * To make sure blocks get registered correctly, include the following files:
+ * - `manifest.json`
+ * - `<block-name>.js`
+ * at `src/blocks/custom/<block-name>`
  */
 
 import domReady from '@wordpress/dom-ready';
 import { setDefaultBlockName } from '@wordpress/blocks';
 import { select } from '@wordpress/data';
-import {
-	registerBlocks,
-	registerVariations,
-	outputCssVariablesGlobal,
-	inserter,
-	STORE_NAME,
-} from '@eightshift/frontend-libs/scripts/editor';
+import { registerBlocks, registerVariations, STORE_NAME } from '@eightshift/frontend-libs-tailwind/scripts/editor';
 import { Wrapper } from '../../wrapper/wrapper';
 import WrapperManifest from '../../wrapper/manifest.json';
-import globalSettings from '../../manifest.json';
+import globalSettingsRaw from '../../manifest.json';
+import { themeColors } from '../../../../assets/scripts/theme-colors';
+import { getColorData } from '@eightshift/frontend-libs-tailwind/scripts/editor/colors';
+import { dynamicImport } from '@eightshift/frontend-libs-tailwind/scripts';
+
+const globalSettings = {
+	...globalSettingsRaw,
+	globalVariables: {
+		...globalSettingsRaw.globalVariables,
+		colors: getColorData(themeColors),
+	},
+};
 
 registerBlocks(
 	globalSettings,
@@ -43,16 +48,18 @@ registerVariations(
 	require.context('./../../variations', true, /overrides.json$/),
 );
 
-// Output global css variables.
-outputCssVariablesGlobal();
+// Import styles.
+dynamicImport(require.context('./../../components', true, /styles.css$/));
+dynamicImport(require.context('./../../custom', true, /styles.css$/));
+dynamicImport(require.context('./../../wrapper', true, /styles.css$/));
+
+dynamicImport(require.context('./../../components', true, /styles-editor.css$/));
+dynamicImport(require.context('./../../custom', true, /styles-editor.css$/));
+dynamicImport(require.context('./../../wrapper', true, /styles-editor.css$/));
 
 // Change the default block to the custom paragraph.
 // If changing this block update the blocks filter method in Blocks.php.
 domReady(() => {
 	const namespace = select(STORE_NAME).getSettingsNamespace();
-
 	setDefaultBlockName(`${namespace}/paragraph`);
 });
-
-// Inserter for inserting blocks from console.
-inserter();

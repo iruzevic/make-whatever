@@ -1,5 +1,5 @@
 {
-	"$schema": "https://raw.githubusercontent.com/infinum/eightshift-frontend-libs/develop/schemas/component.json",
+	"$schema": "https://raw.githubusercontent.com/infinum/eightshift-frontend-libs-tailwind/main/schemas/component.json",
 	"componentName": "icon",
 	"title": "Icon",
 	"componentClass": "icon",
@@ -1230,14 +1230,5 @@
 		"wifi": "<svg width='28' height='27' viewBox='0 0 28 27' fill='none' xmlns='http://www.w3.org/2000/svg'><path d='M1.125 10.772a18 18 0 0 1 25.456 0' stroke='currentColor' stroke-width='2' stroke-linecap='round' fill='none'/><path d='M5.102 14.75a12.374 12.374 0 0 1 17.5 0M9.08 18.727a6.75 6.75 0 0 1 9.546 0' stroke='currentColor' stroke-width='2' stroke-linecap='round' fill='none'/></svg>",
 		"world-globe": "<svg width='25' height='24' viewBox='0 0 25 24' fill='none' xmlns='http://www.w3.org/2000/svg'><path d='m3 15-.894-.447A2 2 0 0 1 1 12.763v-.877a2 2 0 0 1 1.298-1.873l2.048-.768c.424-.159.78-.46 1.103-.775C6.2 7.736 7.985 6.5 11.5 6.5c3.1 0 4.856 1.154 5.741 2.03.539.533 1.24.964 1.99 1.069 1.371.191 3.44.753 3.769 2.401.211 1.056.244 1.755.211 2.21-.037.53-.509.79-1.04.79H21m-5 0H8' stroke='currentColor' stroke-width='2' fill='none'/><circle cx='5.5' cy='15.5' r='2.5' stroke='currentColor' stroke-width='2' fill='none'/><circle cx='18.5' cy='15.5' r='2.5' stroke='currentColor' stroke-width='2' fill='none'/></svg>",
 		"world-net": "<svg width='24' height='24' viewBox='0 0 24 24' fill='none' xmlns='http://www.w3.org/2000/svg'><circle cx='12' cy='12' r='11' stroke='currentColor' stroke-width='2' fill='none'/><path d='M1 12h22M12 1S8 3.2 8 12s4 11 4 11m0-22s4 2.2 4 11-4 11-4 11' stroke='currentColor' stroke-width='2' fill='none'/></svg>"
-	},
-	"variables": {
-		"iconSize": [
-			{
-				"variable": {
-					"icon-size": "%value%rem"
-				}
-			}
-		]
 	}
 }

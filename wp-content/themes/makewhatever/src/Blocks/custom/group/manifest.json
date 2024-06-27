@@ -1,8 +1,8 @@
 {
-	"$schema": "https://raw.githubusercontent.com/infinum/eightshift-frontend-libs/develop/schemas/block.json",
+	"$schema": "https://raw.githubusercontent.com/infinum/eightshift-frontend-libs-tailwind/main/schemas/block.json",
 	"blockName": "group",
 	"title": "Group",
-	"description" : "Group block used to grouping multiple blocks.",
+	"description" : "Easily group related blocks.",
 	"category": "eightshift",
 	"icon": {
 		"src": "es-group"
@@ -28,25 +28,5 @@
 			}
 		]
 	},
-	"hasInnerBlocks": true,
-	"innerBlocksDependency": [
-		"heading",
-		"paragraph"
-	],
-	"variablesCustom": [
-		"--wrapper-spacing-top: initial;",
-		"--wrapper-spacing-bottom: initial;",
-		"--wrapper-spacing-top-in: initial;",
-		"--wrapper-spacing-bottom-in: initial;",
-		"--wrapper-divider-top: initial",
-		"--wrapper-divider-bottom: initial;",
-		"--wrapper-display: initial;",
-		"--wrapper-is-full-width: initial;",
-		"--wrapper-grid-template-columns: initial;",
-		"--wrapper-display-type: initial;",
-		"--wrapper-bg-color-type: initial",
-		"--wrapper-bg-color-project: initial",
-		"--wrapper-bg-color-solid: initial",
-		"--wrapper-bg-color-gradient: initial"
-	]
+	"hasInnerBlocks": true
 }

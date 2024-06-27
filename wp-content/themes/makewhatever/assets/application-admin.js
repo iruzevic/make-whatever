@@ -1,13 +1,10 @@
 /**
- * This is the main entry point for Application Admin used for the `WordPress admin screen`.
- * This file registers styles and scripts and all other assets only for the admin but not the editor.
- * You would load helpers, scripts, styles for admin here.
- *
- * Usage: `WordPress admin screen`.
+ * Main entry point for styles, scripts, and other assets used in the WordPress admin.
+ * Does not apply to the Block editor!
  */
 
-// Load styles
-import './styles/application-admin.scss';
+// Styles.
+import './styles/application-admin.css';
 
-// Load scripts
+// Scripts.
 import './scripts/application-admin';

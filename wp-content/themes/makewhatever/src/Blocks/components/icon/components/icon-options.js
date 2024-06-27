@@ -1,58 +1,48 @@
 import React from 'react';
 import { __ } from '@wordpress/i18n';
-import {
-	checkAttr,
-	getAttrKey,
-	getOption,
-	UseToggle,
-	RSOption,
-	Select,
-	generateUseToggleConfig,
-	classnames,
-	RSSingleValue,
-} from '@eightshift/frontend-libs/scripts';
+import { checkAttr, getAttrKey, getHiddenOptions, getOption } from '@eightshift/frontend-libs-tailwind/scripts';
+import { RSOption, RSSingleValue, ComponentToggle, Select, RichLabel } from '@eightshift/ui-components';
+import { icons, JsxSvg } from '@eightshift/ui-components/icons';
 import manifest from './../manifest.json';
 
-const {
-	icons: manifestIcons,
-} = manifest;
+const { icons: manifestIcons } = manifest;
 
-const IconPickerOption = props => (
+const IconPickerOption = (props) => (
 	<RSOption {...props}>
-		<div className='es-h-spaced es-gap-2.5!'>
-			<i
-				className='es-line-h-0! es-w-6 es-h-6 es-display-flex es-items-center es-content-center'
-				dangerouslySetInnerHTML={{ __html: manifestIcons[props.value] }}
-			/>
-			<span>{props.label}</span>
-		</div>
+		<RichLabel
+			icon={<JsxSvg svg={manifestIcons[props.value]} />}
+			label={props.label}
+		/>
 	</RSOption>
 );
 
 const IconPickerValueDisplay = ({ children, ...props }) => (
 	<RSSingleValue {...props}>
-		<div className='es-h-spaced es-gap-2.5!'>
-			<i
-				className='es-line-h-0! es-w-6 es-h-6 es-display-flex es-items-center es-content-center es-nested-color-cool-gray-500'
-				dangerouslySetInnerHTML={{ __html: manifestIcons[props.data.value] }}
-			/>
-			<span>{children}</span>
-		</div>
+		<RichLabel
+			icon={<JsxSvg svg={manifestIcons[props.data.value]} />}
+			label={children}
+		/>
 	</RSSingleValue>
 );
 
 export const IconOptions = (attributes) => {
-	const {
-		setAttributes,
-		hideSizePicker = false,
-	} = attributes;
+	const { setAttributes, hideOptions, ...rest } = attributes;
+
+	const hiddenOptions = getHiddenOptions(hideOptions);
 
 	const iconName = checkAttr('iconName', attributes, manifest);
 	const iconSize = checkAttr('iconSize', attributes, manifest);
+	const iconUse = checkAttr('iconUse', attributes, manifest);
 
 	return (
-		<UseToggle {...generateUseToggleConfig(attributes, manifest, 'iconUse')}>
-			<div className='es-h-spaced'>
+		<ComponentToggle
+			label={manifest.title}
+			icon={icons.iconGeneric}
+			onChange={(value) => setAttributes({ [getAttrKey('iconUse', attributes, manifest)]: value })}
+			useComponent={iconUse}
+			{...rest}
+		>
+			{!hiddenOptions?.iconName && (
 				<Select
 					value={iconName}
 					options={getOption('iconName', attributes, manifest)}
@@ -60,24 +50,19 @@ export const IconOptions = (attributes) => {
 					customMenuOption={IconPickerOption}
 					customValueDisplay={IconPickerValueDisplay}
 					onChange={(value) => setAttributes({ [getAttrKey('iconName', attributes, manifest)]: value })}
-					additionalClasses={classnames('es-flex-grow-1', !hideSizePicker && 'es-max-w-52')}
-					noBottomSpacing
 					simpleValue
 				/>
+			)}
 
-				{!hideSizePicker &&
-					<Select
-						value={iconSize}
-						options={getOption('iconSize', attributes, manifest)}
-						onChange={(value) => setAttributes({ [getAttrKey('iconSize', attributes, manifest)]: value })}
-						additionalSelectClasses='es-max-w-14'
-						additionalClasses='es-flex-shrink-0'
-						noBottomSpacing
-						simpleValue
-						noSearch
-					/>
-				}
-			</div>
-		</UseToggle>
+			{!hiddenOptions?.size && (
+				<Select
+					value={iconSize}
+					options={getOption('iconSize', attributes, manifest)}
+					onChange={(value) => setAttributes({ [getAttrKey('iconSize', attributes, manifest)]: value })}
+					simpleValue
+					noSearch
+				/>
+			)}
+		</ComponentToggle>
 	);
 };

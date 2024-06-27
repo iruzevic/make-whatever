@@ -1,39 +1,24 @@
-import React, { useMemo } from 'react';
-import { selector, checkAttr, getUnique, outputCssVariables, classnames } from '@eightshift/frontend-libs/scripts';
+import React from 'react';
+import { checkAttr, getTwClasses } from '@eightshift/frontend-libs-tailwind/scripts';
+import { JsxSvg } from '@eightshift/ui-components/icons';
 import manifest from './../manifest.json';
-import globalManifest from './../../../manifest.json';
 
 export const IconEditor = (attributes) => {
-	const unique = useMemo(() => getUnique(), []);
+	const { icons: manifestIcons } = manifest;
 
-	const {
-		componentClass,
-		icons: manifestIcons,
-	} = manifest;
-
-	const {
-		selectorClass = componentClass,
-		blockClass,
-		additionalClass,
-	} = attributes;
+	const { additionalClass } = attributes;
 
 	const iconUse = checkAttr('iconUse', attributes, manifest);
 	const iconName = checkAttr('iconName', attributes, manifest);
 
-	const iconClass = classnames(
-		selector(componentClass, componentClass),
-		selector(blockClass, blockClass, selectorClass),
-		selector(additionalClass, additionalClass),
-	);
-
-	if (!iconUse) {
+	if (!iconUse || !manifestIcons?.[iconName]) {
 		return null;
 	}
 
 	return (
-		<>
-			{outputCssVariables(attributes, manifest, unique, globalManifest)}
-			<i className={iconClass} dangerouslySetInnerHTML={{ __html: manifestIcons[iconName] }} data-id={unique} />
-		</>
+		<JsxSvg
+			svg={manifestIcons[iconName]}
+			className={getTwClasses(attributes, manifest, additionalClass)}
+		/>
 	);
 };

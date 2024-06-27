@@ -11,27 +11,21 @@ use MakewhateverVendor\EightshiftLibs\Helpers\Helpers;
 $manifest = Helpers::getManifestByDir(__DIR__);
 
 $buttonUse = Helpers::checkAttr('buttonUse', $attributes, $manifest);
+
 if (!$buttonUse) {
 	return;
 }
 
-$unique = Helpers::getUnique();
-
-$componentClass = $manifest['componentClass'] ?? '';
 $additionalClass = $attributes['additionalClass'] ?? '';
-$blockClass = $attributes['blockClass'] ?? '';
-$selectorClass = $attributes['selectorClass'] ?? $componentClass;
+$buttonAttrs = $attributes['additionalAttributes'] ?? [];
+$buttonId = Helpers::checkAttr('buttonId', $attributes, $manifest);
 
 $buttonUrl = Helpers::checkAttr('buttonUrl', $attributes, $manifest);
-$buttonContent = Helpers::checkAttr('buttonContent', $attributes, $manifest);
-$buttonIsAnchor = Helpers::checkAttr('buttonIsAnchor', $attributes, $manifest);
-$buttonId = Helpers::checkAttr('buttonId', $attributes, $manifest);
 $buttonIsNewTab = Helpers::checkAttr('buttonIsNewTab', $attributes, $manifest);
-$buttonAriaLabel = Helpers::checkAttr('buttonAriaLabel', $attributes, $manifest);
-$buttonAttrs = (array)Helpers::checkAttr('buttonAttrs', $attributes, $manifest);
 
-$buttonAttrs['title'] = $buttonContent;
-$buttonAttrs['data-id'] = $unique;
+$buttonContent = Helpers::checkAttr('buttonContent', $attributes, $manifest);
+
+$buttonAriaLabel = Helpers::checkAttr('buttonAriaLabel', $attributes, $manifest);
 
 if (!empty($buttonUrl)) {
 	$buttonAttrs['href'] = $buttonUrl;
@@ -50,39 +44,27 @@ if (!empty($buttonAriaLabel)) {
 	$buttonAttrs['aria-label'] = $buttonAriaLabel;
 }
 
-$buttonClass = Helpers::classnames([
-	Helpers::selector($componentClass, $componentClass),
-	Helpers::selector($blockClass, $blockClass, $selectorClass),
-	Helpers::selector($additionalClass, $additionalClass),
-	Helpers::selector($buttonIsAnchor, 'js-scroll-to-anchor'),
-]);
+$buttonAttrs['class'] = Helpers::getTwClasses($attributes, $manifest, 'button', $additionalClass);
 
-$buttonTag = $buttonUrl ? 'a' : 'button';
+$buttonTag = !empty($buttonUrl) ? 'a' : 'button';
 ?>
 
-<?php
-	echo Helpers::outputCssVariables($attributes, $manifest, $unique);
-?>
-
-<?php // phpcs:ignore Eightshift.Security.ComponentsEscape.OutputNotEscaped ?>
-<<?php echo $buttonTag; ?>
-	class="<?php echo esc_attr($buttonClass); ?>"
+<<?php echo $buttonTag; // phpcs:ignore Eightshift.Security.HelpersEscape.OutputNotEscaped ?>
 	<?php
 	foreach ($buttonAttrs as $key => $value) {
-		if (!empty($key) && !empty($value)) {
-			echo wp_kses_post("{$key}=\"$value\"");
+		if (empty($key) && empty($value)) {
+			continue;
 		}
+
+		echo wp_kses_post("{$key}=\"$value\"");
 	}
 	?>
 >
 	<?php
-	echo Helpers::render('icon', Helpers::props('icon', $attributes, [
-		'blockClass' => $componentClass,
-	]));
+	echo Helpers::render('icon', Helpers::props('icon', $attributes));
 	?>
 
 	<?php if (!empty($buttonContent)) { ?>
 		<span><?php echo esc_html($buttonContent); ?></span>
 	<?php } ?>
-<?php // phpcs:ignore Eightshift.Security.ComponentsEscape.OutputNotEscaped ?>
-</<?php echo $buttonTag; ?>>
+</<?php echo $buttonTag; // phpcs:ignore Eightshift.Security.HelpersEscape.OutputNotEscaped ?>>

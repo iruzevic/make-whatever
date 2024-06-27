@@ -50,7 +50,3 @@ $headName = Helpers::checkAttr('headName', $attributes, $manifest);
   <link rel="apple-touch-startup-image" href="<?php echo esc_url($headFavicon); ?>">
 	<link rel="shortcut icon" href="<?php echo esc_url($headFavicon); ?>" />
 <?php } ?>
-
-
-<?php
-echo Helpers::outputCssVariablesGlobal(); // phpcs:ignore Eightshift.Security.ComponentsEscape.OutputNotEscaped
