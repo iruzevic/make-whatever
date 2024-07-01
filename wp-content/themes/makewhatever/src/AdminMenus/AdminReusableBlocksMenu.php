@@ -73,7 +73,7 @@ class AdminReusableBlocksMenu extends AbstractAdminMenu
 	 */
 	protected function getTitle(): string
 	{
-		return \esc_html__('Reusable blocks', 'makewhatever');
+		return \esc_html__('Patterns', 'fe-libs-tailwind');
 	}
 
 	/**
@@ -83,7 +83,7 @@ class AdminReusableBlocksMenu extends AbstractAdminMenu
 	 */
 	protected function getMenuTitle(): string
 	{
-		return \esc_html__('Reusable blocks', 'makewhatever');
+		return \esc_html__('Patterns', 'fe-libs-tailwind');
 	}
 
 	/**

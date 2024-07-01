@@ -51,4 +51,38 @@ class EnqueueAdmin extends AbstractEnqueueAdmin
 	{
 		return Config::getProjectVersion();
 	}
+
+	/**
+	 * Get admin script dependencies
+	 *
+	 * @link https://developer.wordpress.org/reference/functions/wp_enqueue_script/#default-scripts-included-and-registered-by-wordpress
+	 *
+	 * @return array<int, string> List of all the script dependencies.
+	 */
+	protected function getAdminScriptDependencies(): array
+	{
+		return ['wp-element', 'wp-i18n', 'wp-api-fetch'];
+	}
+
+	/**
+	 * Enqueue scripts from AbstractEnqueueBlocks, extended to expose additional data.
+	 * Instead of exposing data through localizations, it's now exposed using inline scripts
+	 * as ES_ADMIN_DATA.
+	 *
+	 * @param string $hook Hook name.
+	 *
+	 * @return void
+	 */
+	public function enqueueScripts(string $hook): void
+	{
+		parent::enqueueScripts($hook);
+
+		$data = \wp_json_encode([
+			'nonce' => \wp_create_nonce('wp_rest'),
+		]);
+
+		$inlineScript = "const ES_ADMIN_DATA = {$data}";
+
+		\wp_add_inline_script($this->getAdminScriptHandle(), $inlineScript, 'before');
+	}
 }

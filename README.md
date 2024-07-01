@@ -1,11 +1,11 @@
-# WordPress Make Whatever Project
+# {Project name}
 
-This is the official repository of the Make Whatever.
+This is the official repository of the {Project name}.
 
 ## Requirements
 
-1. PHP 8.2 or higher
-2. Node LTS or higher
+1. PHP 7.4 or higher
+2. Node 16+
 3. [Node.js](https://nodejs.org/en/)
 4. [Composer](https://getcomposer.org/)
 5. [(Optional) WP cli](https://wp-cli.org/)
@@ -19,7 +19,7 @@ For more details on how to use them, check out the [official documentation](http
 Once you clone this repository, you'll need to build it:
 
 ```bash
-cd wp-content/themes/makewhatever
+cd wp-content/themes/{theme-name} // Or plugins/{plugin-name}
 
 composer install
 npm install
@@ -34,7 +34,7 @@ Using the latest boilerplate means that you have WP-CLI scripts available. To us
 wp boilerplate --help
 ```
 
-The project uses PRS-4 autoloading and follows PSR-12 coding standards.
+The project uses PRS-4 autoloading and follows PSR-12 coding standards. Until the DevOps set up the staging site, all the features should be merged to `staging` branch.
  
 ### Environments
 
@@ -44,12 +44,18 @@ We have the following environments (you can also check this in the `setup.json` 
 
 Local development environment. 
 
-URL: `https://make-whatever.test`
+URL: `{local-project.test}`
+
+#### Staging 
+
+Built and deployed automatically from the `staging` branch using CI.
+
+URL: `{staging URL}`
 
 #### Production 
 
 Built automatically from the `main` branch using CI. Manually deployed lead developer.
 
-URL: `https://make-whatever.com`
+URL: `{production URL}`
 
 ## Extra dev notes

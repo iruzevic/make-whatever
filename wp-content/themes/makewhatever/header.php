@@ -6,8 +6,8 @@
  * @package Makewhatever
  */
 
+use Makewhatever\ThemeOptions\ThemeOptions;
 use MakewhateverVendor\EightshiftLibs\Helpers\Helpers;
-use Makewhatever\AdminMenus\ReusableBlocksHeaderFooter;
 
 ?>
 <!DOCTYPE html>
@@ -24,8 +24,9 @@ use Makewhatever\AdminMenus\ReusableBlocksHeaderFooter;
 
 <?php
 // Header reusable block.
-$headerPartialId = get_option(ReusableBlocksHeaderFooter::HEADER_PARTIAL) ?? '';
-ReusableBlocksHeaderFooter::renderPartial($headerPartialId);
+$headerPartialId = get_option(ThemeOptions::OPTION_NAME)['header'] ?? '';
+ThemeOptions::renderPartial($headerPartialId);
+
 ?>
 
-<main class="main-content" id="main-content">
+<main class="main-content layout-base" id="main-content">

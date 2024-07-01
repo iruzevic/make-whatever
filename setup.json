@@ -1,17 +1,27 @@
 {
 	"urls": {
-		"develop": "https://make-whatever.test",
-		"production": "https://make-whatever.com"
+		"develop": "https://dev.boilerplate.com",
+		"staging": "https://staging.boilerplate.com",
+		"production": "https://boilerplate.com"
 	},
-	"core": "6.5.3",
+	"core": "6.0.2",
 	"plugins": {
 		"core": {
-			"query-monitor": "3.16.3",
-			"wp-mail-smtp": "4.0.1",
-			"wordfence": "7.11.6",
-			"redirection": "5.4.2",
-			"wordpress-seo": "22.8"
+			"contact-form-7": "5.1.8",
+			"query-monitor": "3.6.7"
 		},
-		"infinum/eightshift-forms": "4.0.1"
+		"github": {
+			"infinum/eightshift-forms": "1.2.4"
+		},
+		"paid": {
+			"wp-rocket": "3.11.2",
+			"advanced-custom-fields-pro": "5.10.2"
+		},
+		"folder": {
+			"elementor-pro": "3.7.0"
+		}
+	},
+	"themes": {
+		"twentytwentyone": "1.5"
 	}
 }

@@ -3,11 +3,15 @@
 /**
  * 404 error page
  *
- * @package Makewhatever
+ * @package %g_namespace%
  */
+
+use Makewhatever\ThemeOptions\ThemeOptions;
 
 get_header();
 
-esc_html_e('404 - not found', 'makewhatever');
+// Header reusable block.
+$partialId = get_option(ThemeOptions::OPTION_NAME)['fourOhFour'] ?? '';
+ThemeOptions::renderPartial($partialId);
 
 get_footer();

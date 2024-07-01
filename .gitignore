@@ -22,8 +22,14 @@ wp-includes
 # Content
 wp-content/*
 !wp-content/mu-plugins/
+!wp-content/plugins/
 !wp-content/themes/
 /wp-content/themes/index.php
+
+# Ignore these plugins from the core
+wp-content/plugins/hello.php
+wp-content/plugins/akismet/
+/wp-content/plugins/index.php
 
 # Ignore specific themes
 wp-content/themes/twenty*/

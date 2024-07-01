@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Template for the Button Block view.
+ * Button block template.
  *
  * @package Makewhatever
  */
