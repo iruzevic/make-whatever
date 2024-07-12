@@ -12,12 +12,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/infinum/eightshift-libs.git",
-                "reference": "c47daca239fca8df7c0501ac434df7d238294317"
+                "reference": "4fc3cab9448504b79f9c3df2c0c619aaf553c2fa"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/infinum/eightshift-libs/zipball/c47daca239fca8df7c0501ac434df7d238294317",
-                "reference": "c47daca239fca8df7c0501ac434df7d238294317",
+                "url": "https://api.github.com/repos/infinum/eightshift-libs/zipball/4fc3cab9448504b79f9c3df2c0c619aaf553c2fa",
+                "reference": "4fc3cab9448504b79f9c3df2c0c619aaf553c2fa",
                 "shasum": ""
             },
             "require": {
@@ -70,7 +70,7 @@
                 "issues": "https://github.com/infinum/eightshift-libs/issues",
                 "source": "https://github.com/infinum/eightshift-libs"
             },
-            "time": "2024-07-11T23:12:57+00:00"
+            "time": "2024-07-12T06:52:44+00:00"
         },
         {
             "name": "laravel/serializable-closure",
