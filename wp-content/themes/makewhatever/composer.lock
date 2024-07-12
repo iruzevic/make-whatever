@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "bfb280c80df54ee84fcf4df9fcfa16c0",
+    "content-hash": "71aaf468b34cc86e846ee33a0f9a808c",
     "packages": [
         {
             "name": "infinum/eightshift-libs",
@@ -12,12 +12,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/infinum/eightshift-libs.git",
-                "reference": "e3292db4239be580ae1fe23554d7119da205d436"
+                "reference": "c47daca239fca8df7c0501ac434df7d238294317"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/infinum/eightshift-libs/zipball/e3292db4239be580ae1fe23554d7119da205d436",
-                "reference": "e3292db4239be580ae1fe23554d7119da205d436",
+                "url": "https://api.github.com/repos/infinum/eightshift-libs/zipball/c47daca239fca8df7c0501ac434df7d238294317",
+                "reference": "c47daca239fca8df7c0501ac434df7d238294317",
                 "shasum": ""
             },
             "require": {
@@ -44,24 +44,7 @@
                     "EightshiftLibs\\": "src/"
                 }
             },
-            "scripts": {
-                "post-autoload-dump": [
-                    "vendor/bin/captainhook install -f -s"
-                ],
-                "test:types": [
-                    "@php ./vendor/bin/phpstan analyze"
-                ],
-                "test:standards": [
-                    "@php ./vendor/squizlabs/php_codesniffer/bin/phpcs --runtime-set testVersion 8.2-"
-                ],
-                "standards:fix": [
-                    "@php ./vendor/squizlabs/php_codesniffer/bin/phpcbf --runtime-set testVersion 8.2-"
-                ],
-                "test": [
-                    "@test:standards",
-                    "@test:types"
-                ]
-            },
+            "notification-url": "https://packagist.org/downloads/",
             "license": [
                 "MIT"
             ],
@@ -76,18 +59,18 @@
             "description": "WordPress libs developed by Eightshift team to use in modern WordPress.",
             "homepage": "https://eightshift.com/",
             "keywords": [
-                "Gutenberg",
-                "WordPress",
                 "blocks",
                 "composer",
+                "gutenberg",
                 "installer",
-                "plugin"
+                "plugin",
+                "wordpress"
             ],
             "support": {
                 "issues": "https://github.com/infinum/eightshift-libs/issues",
                 "source": "https://github.com/infinum/eightshift-libs"
             },
-            "time": "2024-06-26T14:21:35+00:00"
+            "time": "2024-07-11T23:12:57+00:00"
         },
         {
             "name": "laravel/serializable-closure",
@@ -983,16 +966,16 @@
         },
         {
             "name": "phpstan/phpstan",
-            "version": "1.11.5",
+            "version": "1.11.7",
             "source": {
                 "type": "git",
                 "url": "https://github.com/phpstan/phpstan.git",
-                "reference": "490f0ae1c92b082f154681d7849aee776a7c1443"
+                "reference": "52d2bbfdcae7f895915629e4694e9497d0f8e28d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phpstan/phpstan/zipball/490f0ae1c92b082f154681d7849aee776a7c1443",
-                "reference": "490f0ae1c92b082f154681d7849aee776a7c1443",
+                "url": "https://api.github.com/repos/phpstan/phpstan/zipball/52d2bbfdcae7f895915629e4694e9497d0f8e28d",
+                "reference": "52d2bbfdcae7f895915629e4694e9497d0f8e28d",
                 "shasum": ""
             },
             "require": {
@@ -1037,7 +1020,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2024-06-17T15:10:54+00:00"
+            "time": "2024-07-06T11:17:41+00:00"
         },
         {
             "name": "slevomat/coding-standard",
@@ -1326,16 +1309,16 @@
         },
         {
             "name": "szepeviktor/phpstan-wordpress",
-            "version": "v1.3.4",
+            "version": "v1.3.5",
             "source": {
                 "type": "git",
                 "url": "https://github.com/szepeviktor/phpstan-wordpress.git",
-                "reference": "891d0767855a32c886a439efae090408cc1fa156"
+                "reference": "7f8cfe992faa96b6a33bbd75c7bace98864161e7"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/szepeviktor/phpstan-wordpress/zipball/891d0767855a32c886a439efae090408cc1fa156",
-                "reference": "891d0767855a32c886a439efae090408cc1fa156",
+                "url": "https://api.github.com/repos/szepeviktor/phpstan-wordpress/zipball/7f8cfe992faa96b6a33bbd75c7bace98864161e7",
+                "reference": "7f8cfe992faa96b6a33bbd75c7bace98864161e7",
                 "shasum": ""
             },
             "require": {
@@ -1350,7 +1333,8 @@
                 "php-parallel-lint/php-parallel-lint": "^1.1",
                 "phpstan/phpstan-strict-rules": "^1.2",
                 "phpunit/phpunit": "^8.0 || ^9.0",
-                "szepeviktor/phpcs-psr-12-neutron-hybrid-ruleset": "^0.8"
+                "szepeviktor/phpcs-psr-12-neutron-hybrid-ruleset": "^1.0",
+                "wp-coding-standards/wpcs": "3.1.0 as 2.3.0"
             },
             "suggest": {
                 "swissspidy/phpstan-no-private": "Detect usage of internal core functions, classes and methods"
@@ -1382,9 +1366,9 @@
             ],
             "support": {
                 "issues": "https://github.com/szepeviktor/phpstan-wordpress/issues",
-                "source": "https://github.com/szepeviktor/phpstan-wordpress/tree/v1.3.4"
+                "source": "https://github.com/szepeviktor/phpstan-wordpress/tree/v1.3.5"
             },
-            "time": "2024-03-21T16:32:59+00:00"
+            "time": "2024-06-28T22:27:19+00:00"
         },
         {
             "name": "wp-cli/mustangostang-spyc",

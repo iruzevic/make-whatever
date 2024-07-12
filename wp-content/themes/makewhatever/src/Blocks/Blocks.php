@@ -46,8 +46,5 @@ class Blocks extends AbstractBlocks
 
 		// Output inline css variables.
 		\add_action('wp_footer', [$this, 'outputCssVariablesInline']);
-
-		  // Limits the usage of only custom project blocks.
-		add_filter('allowed_block_types_all', [ $this, 'getAllBlocksList' ], 10, 2);
 	}
 }

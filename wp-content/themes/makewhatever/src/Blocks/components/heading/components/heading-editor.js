@@ -4,11 +4,7 @@ import { checkAttr, getAttrKey, getTwClasses } from '@eightshift/frontend-libs-t
 import manifest from './../manifest.json';
 
 export const HeadingEditor = (attributes) => {
-	const {
-		setAttributes,
-		additionalClass,
-		placeholder = __('Heading', 'makewhatever'),
-	} = attributes;
+	const { setAttributes, additionalClass, placeholder = __('Heading', 'makewhatever') } = attributes;
 
 	const headingUse = checkAttr('headingUse', attributes, manifest);
 

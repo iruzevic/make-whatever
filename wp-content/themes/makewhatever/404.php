@@ -3,7 +3,7 @@
 /**
  * 404 error page
  *
- * @package %g_namespace%
+ * @package Makewhatever
  */
 
 use Makewhatever\ThemeOptions\ThemeOptions;

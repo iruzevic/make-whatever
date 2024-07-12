@@ -37,8 +37,6 @@ class EnqueueBlocks extends AbstractEnqueueBlocks
 
 		// Frontend only style.
 		\add_action('wp_enqueue_scripts', [$this, 'enqueueBlockFrontendStyle'], 50);
-
-		\add_action('enqueue_block_editor_assets', [$this, 'unregisterDefaultStyleOverrides'], 102);
 	}
 
 	/**

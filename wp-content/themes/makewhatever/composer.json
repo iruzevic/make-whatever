@@ -1,6 +1,7 @@
 {
 	"name": "makewhatever/makewhatever",
 	"description": "Eightshift Boilerplate is a WordPress starter theme that helps you build better and faster using the modern development tools.",
+	"version": "1.0.0",
 	"private": true,
 	"license": "MIT",
 	"require-dev": {
@@ -10,12 +11,6 @@
 		"szepeviktor/phpstan-wordpress": "^v1.3.4",
 		"wp-cli/wp-cli": "^v2.10.0"
 	},
-	"repositories": [
-		{
-			"type": "vcs",
-			"url": "https://github.com/infinum/eightshift-libs.git"
-		}
-	],
 	"require": {
 		"php": ">=8.2",
 		"infinum/eightshift-libs": "dev-feature/tailwind"

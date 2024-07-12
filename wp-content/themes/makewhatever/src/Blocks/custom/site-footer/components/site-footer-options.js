@@ -57,9 +57,7 @@ export const SiteFooterOptions = ({ attributes, setAttributes, randId, setRandId
 					return (
 						<RepeaterItem
 							label={header?.length > 0 ? header : __('New section', 'makewhatever')}
-							subtitle={
-								items.length > 0 && sprintf(_n('%d link', '%d links', items.length, 'makewhatever'), items.length)
-							}
+							subtitle={items.length > 0 && sprintf(_n('%d link', '%d links', items.length, 'makewhatever'), items.length)}
 						>
 							<Repeater
 								icon={icons.link}

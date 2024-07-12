@@ -6,8 +6,8 @@
  * @package Makewhatever
  */
 
-use Makewhatever\ThemeOptions\ThemeOptions;
 use MakewhateverVendor\EightshiftLibs\Helpers\Helpers;
+use Makewhatever\ThemeOptions\ThemeOptions;
 
 ?>
 <!DOCTYPE html>
@@ -26,7 +26,6 @@ use MakewhateverVendor\EightshiftLibs\Helpers\Helpers;
 // Header reusable block.
 $headerPartialId = get_option(ThemeOptions::OPTION_NAME)['header'] ?? '';
 ThemeOptions::renderPartial($headerPartialId);
-
 ?>
 
 <main class="main-content layout-base" id="main-content">

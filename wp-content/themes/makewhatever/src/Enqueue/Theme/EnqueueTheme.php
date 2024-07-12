@@ -11,7 +11,6 @@ declare(strict_types=1);
 namespace Makewhatever\Enqueue\Theme;
 
 use Makewhatever\Config\Config;
-use Makewhatever\Rest\Routes\LoadMore\LoadMoreRoute;
 use MakewhateverVendor\EightshiftLibs\Enqueue\Theme\AbstractEnqueueTheme;
 
 /**
@@ -48,22 +47,5 @@ class EnqueueTheme extends AbstractEnqueueTheme
 	public function getAssetsVersion(): string
 	{
 		return Config::getProjectVersion();
-	}
-
-	/**
-	 * Get script localizations
-	 *
-	 * @return array<string, mixed>
-	 */
-	protected function getLocalizations(): array
-	{
-		$namespace = Config::getProjectRoutesNamespace();
-		$version = Config::getProjectRoutesVersion();
-
-		return [
-			'esBlocksLocalization' => [
-				'loadMoreRestUrl' => \get_rest_url(null, "{$namespace}/{$version}/" . LoadMoreRoute::LOAD_MORE_ROUTE),
-			],
-		];
 	}
 }

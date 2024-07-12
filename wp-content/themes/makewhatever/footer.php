@@ -6,7 +6,7 @@
  * @package Makewhatever
  */
 
- use Makewhatever\ThemeOptions\ThemeOptions;
+use Makewhatever\ThemeOptions\ThemeOptions;
 
 ?>
 

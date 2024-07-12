@@ -19,7 +19,7 @@ use WP_Query;
  */
 class ThemeOptions implements ServiceInterface
 {
-		/**
+	/**
 	 * Option name.
 	 *
 	 * @var string

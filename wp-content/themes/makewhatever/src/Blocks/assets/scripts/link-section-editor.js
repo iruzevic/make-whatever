@@ -22,6 +22,7 @@ export const LinkSectionEditor = (props) => {
 		(index = -1) => {
 			if (index < 0) {
 				onChange([...links, defaultSection]);
+
 				return;
 			}
 
@@ -39,6 +40,7 @@ export const LinkSectionEditor = (props) => {
 				updateItem(itemIndex, {
 					items: [defaultLink, ...items],
 				});
+
 				return;
 			}
 			const before = items.slice(0, index + 1);
@@ -173,11 +175,7 @@ export const LinkSectionEditor = (props) => {
 				setTimeout(() => {
 					target.parentElement.nextElementSibling?.querySelector('[contenteditable="true"]')?.focus();
 				}, 25);
-			} else if (
-				code === 'Backspace' &&
-				header === '' &&
-				(items?.length < 1 || items?.every(({ text }) => text === ''))
-			) {
+			} else if (code === 'Backspace' && header === '' && (items?.length < 1 || items?.every(({ text }) => text === ''))) {
 				event.preventDefault();
 
 				// Jump to end of previous input.
@@ -198,7 +196,7 @@ export const LinkSectionEditor = (props) => {
 				return (
 					<div className={classNames?.sectionContainer}>
 						<RichText
-							placeholder={__('Section', 'fe-libs-tailwind')}
+							placeholder={__('Section', '%g_textdomain%')}
 							value={header}
 							onChange={(value) => updateItem(index, { header: value })}
 							allowedFormats={[]}
@@ -211,7 +209,7 @@ export const LinkSectionEditor = (props) => {
 						{items.map(({ text }, i) => {
 							return (
 								<RichText
-									placeholder={__('Item', 'fe-libs-tailwind')}
+									placeholder={__('Item', '%g_textdomain%')}
 									value={text}
 									onChange={(value) => updateInnerItem(index, i, { text: value })}
 									allowedFormats={[]}
@@ -226,7 +224,7 @@ export const LinkSectionEditor = (props) => {
 						<Button
 							size='small'
 							icon={icons.add}
-							tooltip={__('Add link', 'fe-libs-tailwind')}
+							tooltip={__('Add link', '%g_textdomain%')}
 							onPress={({ target }) => {
 								updateItem(index, {
 									items: [...links[index].items, defaultLink],
@@ -250,10 +248,10 @@ export const LinkSectionEditor = (props) => {
 					}, 20);
 				}}
 				icon={icons.add}
-				tooltip={__('Add a section', 'fe-libs-tailwind')}
+				tooltip={__('Add a section', '%g_textdomain%')}
 				className='justify-self-start'
 			>
-				{__('Section', 'fe-libs-tailwind')}
+				{__('Section', '%g_textdomain%')}
 			</Button>
 		</>
 	);
