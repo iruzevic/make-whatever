@@ -16,16 +16,21 @@ $additionalClass = $attributes['additionalClass'] ?? '';
 $imageUse = Helpers::checkAttr('imageUse', $attributes, $manifest) ?? false;
 $imageData = Helpers::checkAttr('imageData', $attributes, $manifest);
 
-if (!$imageUse || empty($imageData['_default']['url'])) {
+$imageDefaultUrl = $imageData['_default']['url'] ?? '';
+$imageDefaultId = $imageData['_default']['id'] ?? '';
+
+if (!$imageUse || !$imageDefaultUrl) {
 	return;
 }
 
-$imageAlt = get_post_meta($imageData['_default']['id'], '_wp_attachment_image_alt', true) ?? '';
+$imageAlt = get_post_meta($imageDefaultId, '_wp_attachment_image_alt', true) ?? '';
 
 $isMobileFirst = $imageData['_desktopFirst'] ?? false;
 
 $breakpointData = Helpers::getSettingsGlobalVariablesBreakpoints();
 $breakpoints = Helpers::getTwBreakpoints($isMobileFirst);
+
+$imageUrlDefault = Helpers::getWebPMedia($imageDefaultUrl)['src'] ?? $imageDefaultUrl;
 ?>
 
 <picture
@@ -39,7 +44,9 @@ $breakpoints = Helpers::getTwBreakpoints($isMobileFirst);
 			continue;
 		}
 
-		$value = $imageData[$breakpoint]['url'] ?? '';
+		$valueUrl = $imageData[$breakpoint]['url'] ?? '';
+
+		$value = Helpers::getWebPMedia($valueUrl)['src'] ?? $valueUrl;
 
 		if (empty($value)) {
 			continue;
@@ -55,7 +62,7 @@ $breakpoints = Helpers::getTwBreakpoints($isMobileFirst);
 	<?php } ?>
 
 	<img
-		src="<?php echo esc_url($imageData['_default']['url'] ?? ''); ?>"
+		src="<?php echo esc_url($imageUrlDefault); ?>"
 		alt="<?php echo esc_attr($imageAlt); ?>"
 		class="<?php echo esc_attr(Helpers::getTwClasses($attributes, $manifest, $additionalClass['image'] ?? $additionalClass)); ?>"
 	/>
