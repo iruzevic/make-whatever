@@ -7,11 +7,7 @@
 	"icon": {
 		"src": "es-navbar"
 	},
-	"keywords": [
-		"site",
-		"navigation",
-		"navbar"
-	],
+	"keywords": ["site", "navigation", "navbar"],
 	"example": {
 		"attributes": {
 			"siteNavigationLogoUrl": "https://loremflickr.com/200/150"
